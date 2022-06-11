@@ -18,3 +18,12 @@ module "ASG" {
   source_image                = "centos-cloud/centos-7"
   firewall_name               = "allow-http"
 }
+  
+module "lb" {
+  source  = "GoogleCloudPlatform/lb-http/google"
+  version = "~> 4.4"
+  region       = "us-central1"
+  name         = "load-balancer"
+  service_port = 80
+  network      = google_compute_network.vpc_network.name
+}
